@@ -1,0 +1,32 @@
+{% extends 'book/base.html'%}
+
+
+{%block status%}
+    <li>
+        <a href="">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Log in/Join
+        </a>
+    </li>
+{%endblock%}
+
+
+{%block body%}
+    <div>
+    {% comment %} {% if object_list %} {% endcomment %}
+        <ul>
+            {% for book in object_list %}
+            <li>
+                <a href = "">{{book.BookName}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% comment %} {% else %}
+        <h3>you dont have any book</h3>
+    {% endif %} {% endcomment %}
+    </div>
+
+
+<div class="uk-margin-large" style="text-align: center">
+    <a href="http://www.miitbeian.gov.cn/"><span class="uk-text-meta">关于书库</span></a>
+</div>
+{%endblock%}
