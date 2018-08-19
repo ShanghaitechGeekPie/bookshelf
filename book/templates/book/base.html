@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BookShelf{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'shelf.png' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'book/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- <script src="{% static 'music/js/main.js' %}"></script> -->
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'book:homepage' %}">BookShelf</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="{% block albums_active %}{% endblock %}"><a href=""><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; 书目列表</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="www.geekpie.club">
+                        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp; GeekPie_
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'book:book-add' %}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; 入库登记
+                    </a>
+                </li>
+                <li>
+                    <a href="/book/{{user.id}}/profile">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 我的图书
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'book:logout'%}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                    </a>
+                </li>
+            </ul>
+
+
+            <form class="navbar-form navbar-right" role="search" method="get" action="">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
+                </div>
+                <button type="submit" class="btn btn-black"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </form>
+
+
+
+        </div>
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

@@ -72,19 +72,6 @@ class DetailView(generic.DetailView):
     template_name = "book/detail.html"
 
 
-# class BookCreate(CreateView):
-#     model = Book
-#     template_name = "book/add_book.html"
-    # fields = [
-    #     'ISBN',
-    #     'IsBorrowed',
-    #     'BookName',
-    #     'FrontPage',
-    #     'Author',
-    #     'Publisher',
-    #     'Devoter',
-    # ]
-#     success_url = reverse_lazy('book:homepage')
 
 def create_book(request):
     if not request.user.is_authenticated: 
