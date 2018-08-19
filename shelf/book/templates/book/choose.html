@@ -17,7 +17,23 @@
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
   </head>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="./Checkout example for Bootstrap_files/jquery-slim.min.js.下载"></script>
+<script>
+    function MyForm(){
+    var obj={};
+    obj.username="XXXXX";
+    obj.item1=$("#item1").val().trim();
+    obj.item2=$("#item2").val().trim();
+    obj.startime=$("#startime").val().trim();
+    obj.endtime=$("#endtime").val().trim();
+    obj.room=$("#room").val().trim();
+    obj.startime2=$("#startime2").val().trim();
+    obj.endtime2=$("#endtime2").val().trim();
+    var string=JSON.stringify(obj);
+    console.log(string);
+    }
+</script>
   <body class="bg-light" data-gr-c-s-loaded="true">
 
     <div class="container">
@@ -27,11 +43,11 @@
       </div>
 
     
-          <form class="needs-validation" novalidate="">
+          <form class="needs-validation" novalidate=""  id="form1" name="form1" method="post" action="" onsubmit="return MyForm()">
 
               <div class="mb-3">
                 <label for="count">可外借物品</label>
-                <select class="custom-select d-block w-100" id="country">
+                <select class="custom-select d-block w-100" id="item1">
                   <option value="">选择...</option>
                   <option>联想笔记本电脑</option>
                   <option>碎纸机</option>
@@ -41,7 +57,7 @@
 
             <div class="mb-3">
               <label for="address">其他</label>
-              <input type="text" class="form-control" placeholder="无">
+              <input type="text" class="form-control" placeholder="无" id="item2">
             </div>
             
             <div class="container">
@@ -50,7 +66,7 @@
                       <div class="form-group">
                           <label for="dtp_input1" class="col-md-2 control-label">开始时间</label>
                           <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                              <input class="form-control" size="16" type="text" value="" readonly>
+                              <input class="form-control" size="16" type="text" value="" id="startime" readonly>
                               <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                           </div>
@@ -59,7 +75,7 @@
                       <div class="form-group">
                         <label for="dtp_input1" class="col-md-2 control-label">结束时间</label>
                         <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <input class="form-control" size="16" type="text" value="" id="endtime" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                   <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -70,7 +86,7 @@
               </div>
               <div class="mb-3">
                 <label for="count">可借房间</label>
-                <select class="custom-select d-block w-100" id="country">
+                <select class="custom-select d-block w-100" id="room">
                   <option value="">选择...</option>
                   <option>201</option>
                   <option>202</option>
@@ -84,7 +100,7 @@
                         <div class="form-group">
                             <label for="dtp_input1" class="col-md-2 control-label">开始时间</label>
                             <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <input class="form-control" size="16" type="text" value="" id="startime2" readonly>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                       <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                             </div>
@@ -93,7 +109,7 @@
                         <div class="form-group">
                           <label for="dtp_input1" class="col-md-2 control-label">结束时间</label>
                           <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                              <input class="form-control" size="16" type="text" value="" readonly>
+                              <input class="form-control" size="16" type="text" value="" id="endtime2" readonly>
                               <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                           </div>
@@ -112,6 +128,7 @@
       </footer>
     </div>
 
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -120,28 +137,7 @@
     <script src="./Checkout example for Bootstrap_files/popper.min.js.下载"></script>
     <script src="./Checkout example for Bootstrap_files/bootstrap.min.js.下载"></script>
     <script src="./Checkout example for Bootstrap_files/holder.min.js.下载"></script>
-    <script>
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function() {
-        'use strict';
 
-        window.addEventListener('load', function() {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
-
-          // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        }, false);
-      })();
-    </script>
   
   <script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
