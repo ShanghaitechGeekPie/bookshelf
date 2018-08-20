@@ -15,8 +15,12 @@ to start the service, the web runs on **127.0.01:8000/book** as default
 
 # Static Files
 css,js and pics
-they are stored in ./book/static 
+they are stored in 
+
+./book/static
+
 **Do not put them at random place, or the project would be a mess**
+
 **To modify html with static files, you can use staic files as shown in item.html:line 6 to line12**
 
 
