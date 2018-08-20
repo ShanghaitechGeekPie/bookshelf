@@ -8,7 +8,7 @@
         <main role="main">
             {% if error_message %}
                 <p><strong>{{ message }}</strong></p>
-            {% endif %}
+            {% endif %} 
             <div class="album py-5 bg-light">
                 <div class="container"> 
 
@@ -27,7 +27,9 @@
                                                             {% csrf_token %} 
                                                         <button  type="submit" class="btn btn-sm btn-outline-secondary">借书</button>
                                                     </form>
-                                                    <button href = "{% url 'book:detail' book.id %}" type="button" class="btn btn-sm btn-outline-secondary">详细信息</button>
+                                                    <a  href = "/book/{{book.id}}/detail" >
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary">详细信息</button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div> 

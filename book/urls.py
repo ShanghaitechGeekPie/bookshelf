@@ -5,7 +5,7 @@ app_name = "book"
 
 urlpatterns = [
     path('', views.index, name = 'homepage'),
-    path('<int:book_id>/detail',views.DetailView.as_view(),name = 'detail'),
+    path('<int:book_id>/detail',views.Detail,name = 'detail'),
     path('book/add',views.create_book,name = "book-add"),
     path('register',views.register,name = 'register'),
     path('loginf',views.login_fuck, name = 'login'),

@@ -67,10 +67,16 @@ def login_fuck(request):
 
 
 
-class DetailView(generic.DetailView):
-    model = Book
-    template_name = "book/detail.html"
-
+def Detail(request,book_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('book/login')
+    else:
+        book = get_object_or_404(Book, pk=book_id)
+        context = {
+            'book' : book,
+        }
+        return render(request,'book/item.html',context)
+    
 
 
 def create_book(request):
@@ -105,7 +111,8 @@ def BorrowBook(request, book_id):
         return render(request , 'book/login.html' ,{ 'error_message' : "Please login first"} )
     else:    
         user = request.user
-        record = BorrowRecord(Borrower=request.user,BookBorrowed = Book.objects.get(pk=book_id))
+        book = Book.objects.get(pk=book_id)
+        record = BorrowRecord(Borrower=request.user,BookBorrowed = book)
         record.save() 
         # form = BorrowRecordForm(request.POST or None, request.FILES or None)
         # if form.is_valid(): 

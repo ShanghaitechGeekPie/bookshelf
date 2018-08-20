@@ -1,4 +1,3 @@
-
 function success(data){
     authorlist = data.author;
 
@@ -14,11 +13,14 @@ function success(data){
             all_author += ',';
         }
     }
+    console.log(data);
+
 
     document.getElementById("id_BookName").value = data.title;
     document.getElementById("id_FrontPage").value = data.image;
     document.getElementById("id_Author").value = all_author;
-    document.getElementById("id_Publisher").value = data.publisher;    
+    document.getElementById("id_Publisher").value = data.publisher;  
+    document.getElementById("id_Introduction").innerHTML =  data.summary; 
 
 }
 
@@ -26,6 +28,7 @@ function success(data){
 
 
 function generateInfo(isbn){
+
     var geturl = "https://api.douban.com/v2/book/isbn/" + isbn.toString();
     $.ajax({
         url: geturl,
@@ -40,6 +43,7 @@ function generateInfo(isbn){
 }
 
 window.onkeyup = function(e){
+   
     if (e.keyCode == 13){
         isbn = document.getElementById('id_ISBN').value;
         generateInfo(isbn);

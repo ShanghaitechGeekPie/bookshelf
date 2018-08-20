@@ -26,10 +26,10 @@ class BookForm(forms.ModelForm):
         model = Book
         fileds = fields = [
         'ISBN',
-        'IsBorrowed',
         'BookName',
         'FrontPage',
         'Author',
         'Publisher',
         'Devoter',
+        'Introduction',
     ]
