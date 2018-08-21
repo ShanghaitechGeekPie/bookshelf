@@ -21,7 +21,6 @@ all_book = Book.objects.all()
 
 def index(request):
     if not request.user.is_authenticated:
-        print('here')
         books = Book.objects.all()
         return render(request, 'book/homepage_guest.html', {'books':all_book})
     else:
@@ -37,8 +36,10 @@ def index(request):
                 'books': books,
             })
         else:
-            books = Book.objects.all()
-            print(type(books))
+            books = Book.objects.filter(~Q(Quantity = 0))
+            for book in books:
+                print(book.Quantity)
+            
             return render(request, 'book/homepage.html', {'books': books})
 
 def logout(request):
@@ -85,18 +86,24 @@ def create_book(request):
     else:
         form = BookForm(request.POST or None, request.FILES or None)
         if form.is_valid():
-            album = form.save(commit=False)
-            album.user = request.user
-            album.save()
+            book = form.save(commit=False)
+            thisISBN = book.ISBN
+            existingbook = Book.objects.filter(ISBN = thisISBN)
+            if existingbook.count() > 0:
+                existingbook = existingbook[0]
+                existingbook.Quantity += 1
+                existingbook.save()
+                return HttpResponseRedirect('/book')
+            book.user = request.user
+            book.save()
             # save the image front internet
-            url = album.FrontPage
+            url = book.FrontPage
             data = urllib.request.urlretrieve(url)
             frontpage = Image.open(data[0])
-            new_route = './book/static/' + str(album.id) + '_frontpage.jpg'
+            new_route = './book/static/' + str(book.id) + '_frontpage.jpg'
             frontpage.save(new_route,'JPEG')
-            album.FrontPage = str(album.id) + '_frontpage.jpg'
-            album.save()
-            #
+            book.FrontPage = str(book.id) + '_frontpage.jpg'
+            book.save()
             return HttpResponseRedirect('/book')
         context = {
             "form": form,
@@ -113,16 +120,13 @@ def BorrowBook(request, book_id):
         user = request.user
         book = Book.objects.get(pk=book_id)
         record = BorrowRecord(Borrower=request.user,BookBorrowed = book)
-        record.save() 
-        # form = BorrowRecordForm(request.POST or None, request.FILES or None)
-        # if form.is_valid(): 
-        #     record = form.save(commit=False)
-        #     record.borrower = request.user
-        #     record.book = get_object_or_404(Book, pk=book_id)
-        #     record.save()
-        # else:
-        #     print('wrong')
-        return HttpResponseRedirect("/book/%d/profile" % user.id)
+        if book.Quantity >= 1:
+            book.Quantity -= 1
+            book.save()
+            record.save() 
+            return HttpResponseRedirect("/book/%d/profile" % user.id)
+        else:
+            return Http404
 
 
 def returnBook(request, book_id):
@@ -139,6 +143,9 @@ def returnBook(request, book_id):
         else:
             thisRecord = BorrowRecord.objects.filter(Borrower = request.user , BookBorrowed = Book.objects.get(id = book_id))
             borrowed_books_id.remove(thisRecord[0].BookBorrowed.id)
+            source = Book.objects.get(id = thisRecord[0].BookBorrowed.id)
+            source.Quantity += 1
+            source.save()
             thisRecord.delete()
             borrowed_books = Book.objects.filter(pk__in = borrowed_books_id)
             context = {
