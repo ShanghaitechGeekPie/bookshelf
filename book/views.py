@@ -183,7 +183,7 @@ def register(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                auth_login(request, user)
+                login(request, user)
                 # borrowed_books = Book.objects.filter(user=request.user)
                 return render(request, 'book/homepage.html', {'books': Book.objects.all()})
     context = {
