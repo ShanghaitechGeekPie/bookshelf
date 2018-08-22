@@ -37,9 +37,6 @@ def index(request):
             })
         else:
             books = Book.objects.filter(~Q(Quantity = 0))
-            for book in books:
-                print(book.Quantity)
-            
             return render(request, 'book/homepage.html', {'books': books})
 
 def logout(request):
@@ -146,7 +143,9 @@ def returnBook(request, book_id):
             source = Book.objects.get(id = thisRecord[0].BookBorrowed.id)
             source.Quantity += 1
             source.save()
-            thisRecord.delete()
+            thisRecord = thisRecord[0]
+            thisRecord.finished = True
+            thisRecord.save()
             borrowed_books = Book.objects.filter(pk__in = borrowed_books_id)
             context = {
                 'books' : borrowed_books,
@@ -166,7 +165,7 @@ def userProfile(request,user_id):
         return render(request, 'book/login.html' ,{ error_message : "Please login first"} )
     else:
 
-        borrowRecords = BorrowRecord.objects.filter( Borrower = request.user)
+        borrowRecords = BorrowRecord.objects.filter( Borrower = request.user ).filter(finished = False)
 
         borrowed_books = set()
 

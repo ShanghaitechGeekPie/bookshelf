@@ -28,8 +28,8 @@ class Book(models.Model):
 class BorrowRecord(models.Model):
     Borrower = models.ForeignKey(User, on_delete=models.CASCADE)
     BookBorrowed = models.ForeignKey(Book, null = True, on_delete = models.CASCADE)
-    BeginTime = models.DateField(auto_now_add = True)
-
+    BeginTime = models.DateTimeField()
+    finished = models.BooleanField(default = False)
     def __str__(self):
         return self.Borrower.username + "借了" + self.BookBorrowed.BookName
 

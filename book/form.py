@@ -24,7 +24,7 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fileds = fields = [
+        fields = [
         'ISBN',
         'BookName',
         'FrontPage',
