@@ -37,3 +37,5 @@ footer p {
 }
 
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+@media (min-width:576px){.container{max-width:440px}}@media (min-width:768px){.container{max-width:440px}}@media (min-width:992px){.container{max-width:440px}}@media (min-width:1200px){.container{max-width:440px}}

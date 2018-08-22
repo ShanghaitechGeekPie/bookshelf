@@ -8,10 +8,10 @@ Runs on django 2.0 and some little tools.
 The environment is already built in the django-env, you can run 
 ```pip install virtualenv```
 ```cd [the project repo] ```
-```source ./django_env/bin/activate ```
+```source ./django-env/bin/activate ```
 to start the virtualenv, then run 
 ```python manage.py runserver ``` 
-to start the service, the web runs on **127.0.01:8000/book** as default
+to start the service, the web runs on **127.0.0.1:8000/book** as default
 
 # Static Files
 css,js and pics
