@@ -102,9 +102,12 @@ def create_book(request):
                 existingbook.save()
                 return HttpResponseRedirect('/book')
             # save the image front internet
+            book.save()
             url = book.FrontPage
             data = urllib.request.urlretrieve(url)
             frontpage = Image.open(data[0])
+            print(book.id)
+            print(book.pk)
             new_route = './book/static/' + str(book.id) + '_frontpage.jpg'
             frontpage.save(new_route,'JPEG')
             book.FrontPage = str(book.id) + '_frontpage.jpg'

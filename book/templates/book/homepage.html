@@ -2,11 +2,7 @@
 <div>
     {% if books %}
     <ul>
-        {% load staticfiles %} {% comment %}
-        <link rel="stylesheet" type="text/css" href="{% static 'book/list-style.css' %}"
-        /> {% endcomment %} {% comment %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> {% endcomment %}
-        <!-- Custom styles for this template -->
+       
        
        
         <br\>
@@ -25,7 +21,7 @@
                     <div class="col-md-3">
                         <div class="card mb-4 box-shadow">
                             <div align='center'>
-                                {% load staticfiles %}
+                                {% load static %}
                                 <img class="card-img-top" src="{% static book.FrontPage %}" href="/book/{{book.id}}/detail" alt="Thumbnail [100%x100%]" style="height: 50%; width: 50%; display: block;"
                                     data-holder-rendered="true">
                             </div>
