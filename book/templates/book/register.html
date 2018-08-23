@@ -1,34 +1,64 @@
 {% extends 'book/base_visitor.html' %}
-{% block title %}Register{% endblock %}
+{% block title %}注册{% endblock %}
 {% block register_active %}active{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+<div class="container-fluid" id = 'form-container'>
 
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-6" id = 'form-container'>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3>Register for an Account</h3>
+                    <br /><br />
+                    <h2>注册一个新的账号</h2>
+                    <br /><br />
                     {% if error_message %}
                         <p><strong>{{ error_message }}</strong></p>
                     {% endif %}
                     <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {% include 'book/form_template.html' %}
+                        <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_username">用户名</label></label>
+                                <div class="col-sm-10"><input class = "form-control" type="text" name="username" required id="id_username" maxlength="150" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_email">邮箱</label></label>
+                                <div class="col-sm-10"><input class = "form-control" type="email" name="email" id="id_email" maxlength="254" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_password">密码</label></label>
+                                <div class="col-sm-10"><input class = "form-control" type="password" name="password" required id="id_password" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_school_ID">学工号</label></label>
+                                <div class="col-sm-10"><input class = "form-control" type="number" name="school_ID" required id="id_school_ID" /></div>
+                            </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">注册</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="panel-footer">
-                    Already have an account? <a href="{% url 'book:homepage' %}">Click here</a> to log in.
+                    已经有一个账号了? <a href="{% url 'book:homepage' %}">点这里</a>登录.
                 </div>
             </div>
         </div>
-    </div>
 
 </div>
 

@@ -1,13 +1,19 @@
 {% extends 'book/base.html'%} {%block body%}
 <div>
+        <div class="jumbotron">
+                {% comment %} <h10 class="display-3">添加一本新书</h10> {% endcomment %}
+                <p class="lead"><font size = '6'>我的书架</font></p>
+                <hr class="m-y-md">
+                <p>查看已借图书</p>                
+              </div>
     {% if books %}
     <ul>
         {% load staticfiles %}
-        <link rel="stylesheet" type="text/css" href="{% static 'book/list-style.css' %}" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
          <!-- Custom styles for this template -->
-    <link href="/static/book/card.css" rel="stylesheet">
-        <main role="main">
+         
+         <main role="main">
+
+            
             {% if message %}
                 <p><strong>{{ message }}</strong></p>
             {% endif %}
@@ -44,6 +50,8 @@
         </main>
     </ul>
     {% else %}
+        <br\>
+        <br\>
         <div class="uk-margin-large" style="text-align: center">
             <span class="uk-text-meta">您还没有借书</span>
             <a href="/book">

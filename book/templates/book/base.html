@@ -1,69 +1,67 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}BookShelf{% endblock %}</title>
     {% load staticfiles %}
     <link rel="shortcut icon" type="image/png" href="{%  static 'shelf.png' %}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{% static 'book/style.css' %}"/>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <!-- <script src="{% static 'music/js/main.js' %}"></script> -->
+    <style>
+        #form-container{     margin:0px auto;width:1200px; /* 必须制定宽度 */       }           
+     </style>
+            
 </head>
+
+
 <body>
-<nav class="navbar navbar-inverse">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
-        <!-- Header -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'book:homepage' %}">BookShelf</a>
-        </div>
-
         <!-- Items -->
-        <div class="collapse navbar-collapse" id="topNavBar">
-            <ul class="nav navbar-nav">
-                <li class="{% block albums_active %}{% endblock %}"><a href="/book"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; 书目列表</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="https://www.geekpie.club">
-                        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp; GeekPie_
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'book:book-add' %}">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; 入库登记
-                    </a>
-                </li>
-                <li>
-                    <a href="/book/{{user.id}}/profile">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 我的图书
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'book:logout'%}">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
-                    </a>
-                </li>
-            </ul>
+        <a class="navbar-brand" href="#">BookShelf</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item ">
+                            <a class="nav-link" href="https://geekpie.club">
+                                <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp; GeekPie_</a>
+                          </li>
+                          <li class="nav-item">
+                                <a class="nav-link" href="{% url 'book:homepage' %}">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; 全部图书
+                                </a>
+                              </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'book:book-add' %}">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; 入库登记
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                                <a class="nav-link" href="/book/{{user.id}}/profile">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; 我的书架
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'book:logout'%}">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; 退出
+                                    </a>
+                            </li>
+                          
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                          <input class="form-control mr-sm-2" type="search" name = 'q' value="{{ request.GET.q }}" placeholder="搜索书名，作者，ISBN" aria-label="Search">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                      </div>
 
 
-            <form class="navbar-form navbar-right" role="search" method="get" action="">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
-                </div>
-                <button type="submit" class="btn btn-black"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </form>
-
-
+           
 
         </div>
 

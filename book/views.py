@@ -7,7 +7,7 @@ from django.http import HttpResponse, Http404
 from .form import UserForm, BorrowRecordForm,BookForm
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.db.models import Q
 
 import urllib.request 
@@ -22,7 +22,7 @@ all_book = Book.objects.all()
 def index(request):
     if not request.user.is_authenticated:
         books = Book.objects.all()
-        return render(request, 'book/homepage_guest.html', {'books':all_book})
+        return HttpResponseRedirect('/book/login')
     else:
         books = Book.objects.all()
         query = request.GET.get("q")
@@ -39,13 +39,14 @@ def index(request):
             books = Book.objects.filter(~Q(Quantity = 0))
             return render(request, 'book/homepage.html', {'books': books})
 
-def logout(request):
+def logout_user(request):
     if not request.user.is_authenticated:
         return render(request, 'book/login.html', {'error_message' :'您还没有登录'})
     else:
-        return render(request, 'book/homepage_guest.html',{'books': all_book})
+        logout(request)
+        return HttpResponseRedirect('/book')
 
-def login_fuck(request):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -56,7 +57,7 @@ def login_fuck(request):
             context = {
                 'books' : books
             }
-            return render(request, 'book/homepage.html', context)
+            return HttpResponseRedirect('/book')
         else :
             return render(request, 'book/login.html',{'error_message' : "您还没有注册"} )
     else:
@@ -104,6 +105,7 @@ def create_book(request):
             return HttpResponseRedirect('/book')
         context = {
             "form": form,
+            "all_user" : User.objects.all(),
         }
         return render(request, 'book/add_book.html', context)
 
@@ -112,7 +114,7 @@ def create_book(request):
 
 def BorrowBook(request, book_id):
     if not request.user.is_authenticated:
-        return render(request , 'book/login.html' ,{ 'error_message' : "Please login first"} )
+        return render(request , 'book/login.html' ,{ 'error_message' : " 请先登录"} )
     else:    
         user = request.user
         book = Book.objects.get(pk=book_id)
@@ -174,7 +176,7 @@ def userProfile(request,user_id):
 
         borrowed_books = Book.objects.filter(pk__in = borrowed_books)
 
-        return render(request , 'book/userprofile.html' , {'books': borrowed_books , 'message': "我的书架"})
+        return render(request , 'book/userprofile.html' , {'books': borrowed_books})
         
 
 

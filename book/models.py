@@ -7,7 +7,7 @@ from django.urls import reverse
 class Book(models.Model):
     ISBN = models.CharField(max_length = 30)
     BookName = models.CharField(max_length = 250)
-    FrontPage = models.CharField (max_length = 400, default = 'static\no_frontpage.png')
+    FrontPage = models.CharField (max_length = 400, default = 'static/no_frontpage.png')
     Author = models.CharField(max_length = 100,default = "未知")
     Translator = models.CharField(max_length = 100,default = "无")
     Publisher = models.CharField(max_length = 100,default = "未知")
@@ -28,7 +28,7 @@ class Book(models.Model):
 class BorrowRecord(models.Model):
     Borrower = models.ForeignKey(User, on_delete=models.CASCADE)
     BookBorrowed = models.ForeignKey(Book, null = True, on_delete = models.CASCADE)
-    BeginTime = models.DateTimeField()
+    BeginTime = models.DateTimeField(auto_now_add=True)
     finished = models.BooleanField(default = False)
     def __str__(self):
         return self.Borrower.username + "借了" + self.BookBorrowed.BookName

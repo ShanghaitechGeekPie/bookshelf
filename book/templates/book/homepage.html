@@ -3,30 +3,27 @@
     {% if books %}
     <ul>
         {% load staticfiles %}
-        <link rel="stylesheet" type="text/css" href="{% static 'book/list-style.css' %}" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'book/list-style.css' %}" /> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> {% endcomment %}
           <!-- Custom styles for this template -->
-    <link href="/static/book/card.css" rel="stylesheet">
         <main role="main">
             {% if error_message %}
                 <p><strong>{{ message }}</strong></p>
             {% endif %} 
-            <div class="album py-5 bg-light">
+            
+        
                 <div class="container"> 
-
                     <div class="row">
                             {% for book in books %}
-                                <div class="col-md-3">
-                                    <div class="card mb-4 box-shadow">
-                                        <img class="card-img-top" data-src="text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 75%; width: 75%; display: block;"
-                                        {% load staticfiles %}    
-                                        src="{% static book.FrontPage %}"data-holder-rendered="true">
+                            <div class="card-columns">
+                                    <div class="card">
+                                        <div align = 'center' >
+                                         {% load staticfiles %}   
+                                        <img  class="card-img-top" src="{% static book.FrontPage %}" href = "/book/{{book.id}}/detail" alt="Thumbnail [100%x100%]" style="height: 50%; width: 50%; display: block;" data-holder-rendered="true">
+                                        </div>
                                         <div class="card-body">
-<<<<<<< HEAD
-                                            <p class="card-text">书名：《 {{book.BookName}} 》</p>
-=======
-                                            <p class="card-text">书名：《{{book.name}}》</p>
->>>>>>> 08362a28149a65b040017887b68e188d84f516c2
+                                            <p class="card-text">{{book.BookName}}》</p>
+                                            <p class="card-text">作者：{{book.Author}}</p>
                                             <p class="card-text">数量：{{book.Quantity}}</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
@@ -41,16 +38,21 @@
                                             </div>
                                         </div> 
                                     </div>
+                                    
                                 </div>
                             {%endfor%}
                     </div>
                 </div>
-            </div>
 
         </main>
     </ul>
     {% else %}
-    <h3>No BOOKS AT ALL</h3>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-3">歇菜了！</h1>
+          <p class="lead">书架上一本书都没有</p>
+        </div>
+      </div>
     {% endif %}
 </div>
 

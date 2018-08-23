@@ -1,27 +1,98 @@
 {% extends 'book/base.html' %}
-{% block title %}Add a New Album{% endblock %}
+{% block title %}入库登记{% endblock %}
 {% block albums_active %}active{% endblock %}
 
 {% block body %}
 
 {% load staticfiles %}
-<script src = "{% static 'book/getinfo.js' %}"></script>
+<script src = "{% static 'getinfo.js' %}"></script>
 
 
-<div class="container-fluid">
+<div class="container-fluid" id = 'form-container'>
 
-    <div class="row">
-
-        <div class="col-sm-12 col-md-7">
+        <div class="col-sm-12 col-md-7" align="center" id = 'form-container'>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3>添加图书</h3>
+                        <div class="jumbotron">
+                                {% comment %} <h10 class="display-3">添加一本新书</h10> {% endcomment %}
+                                <p class="lead"><font size = '6'>添加一本新书</font></p>
+                                <hr class="m-y-md">
+                                <p>点击ISBN输入栏，只需用扫码枪扫描图书的条形码，即可录入图书信息</p>
+                                
+                              </div>
                     {% if error_message %}
-                        <p><strong>{{ error_message }}</strong></p>
+                    <div class="alert alert-warning" role="alert">
+                            <strong>Warning!</strong>{{error_message}
+                          </div>
                     {% endif %}
                     <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {% include 'book/form_template.html' %}
+                        <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-1" for="song_title"><label for="id_ISBN">ISBN:</label></label>
+                                <div class="col-sm-5"><input  type="text" name="ISBN" required id="id_ISBN" maxlength="30" placeholder="请用扫码枪扫书后条形码"/></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_BookName">书名</label></label>
+                                <div class="col-sm-10"><input type="text" name="BookName" required id="id_BookName" maxlength="250" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_FrontPage">封面图片</label></label>
+                                <div class="col-sm-10"><input placeholder="封面图片的URL" type="text" name="FrontPage" required id="id_FrontPage" maxlength="400" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_Author">作者</label></label>
+                                <div class="col-sm-10"><input type="text" name="Author" required id="id_Author" maxlength="100" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_Publisher">出版社</label></label>
+                                <div class="col-sm-10"><input type="text" name="Publisher" placeholder="某某出版社" required id="id_Publisher" maxlength="100" /></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_Devoter">捐赠者</label></label>
+                                <div class="col-sm-10"><select name="Devoter" id="id_Devoter">
+                          <option value="" selected>---------</option>
+                        
+                          <option value="20">1</option>
+                        
+                          {% for person in all_user%}
+                          <option value="{{person.id}}">{{person.username}}</option>
+                          {% endfor %}
+                          
+                        
+                        </select></div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="text-danger small"></span>
+                                </div>
+                                <label class="control-label col-sm-2" for="song_title"><label for="id_Introduction">Introduction:</label></label>
+                                <div class="col-sm-10"><textarea name="Introduction" id="id_Introduction" cols="40" required rows="10">
+                        </textarea></div>
+                            </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-success">提交</button>
@@ -32,25 +103,7 @@
             </div>
         </div>
 
-        <!-- <div class="col-sm-12 col-md-5">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h3>What is Viberr?</h3>
-                    <p>Viberr is an app that allows you to upload and store all of your music on the cloud.</p>
-                    <h3>How do I add music?</h3>
-                    <p>First, create a new album by filling out the form on this page. Once an album is created you will be able to add/upload songs.</p>
-                    <h3>What are some Album logo best practices?</h3>
-                    <ul>
-                        <li>Have a resolution of 512x512</li>
-                        <li>Use common image formats such as .JPG, .GIF, or .PNG</li>
-                        <li>Remain under the 2MB limit.</li>
-                        <li>Square images look best</li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
 
-    </div>
 
 </div>
 {% endblock %}
