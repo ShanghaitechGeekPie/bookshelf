@@ -1,6 +1,6 @@
 {% extends 'book/base.html'%} {%block body%}
-<div>
-        <div class="jumbotron">
+<div id = 'form-container'>
+        <div class="jumbotron" >
                 {% comment %} <h10 class="display-3">添加一本新书</h10> {% endcomment %}
                 <p class="lead"><font size = '6'>我的书架</font></p>
                 <hr class="m-y-md">
@@ -12,42 +12,49 @@
          <!-- Custom styles for this template -->
          
          <main role="main">
-
-            
-            {% if message %}
-                <p><strong>{{ message }}</strong></p>
-            {% endif %}
-            <div class="album py-5 bg-light">
-                <div class="container"> 
-
+                {% if error_message %}
+                <div class="alert alert-warning" role="alert">
+                    <strong>{{error_message}</strong>
+                </div>
+                {% endif %}
+    
+    
+                <div class="container">
                     <div class="row">
-                            {% for book in books %}
-                                <div class="col-md-3">
-                                    <div class="card mb-4 box-shadow">
-                                        <img class="card-img-top" data-src="text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 200px; display: block;"
-                                        {% load staticfiles %}    
-                                        src="{% static book.FrontPage %}"data-holder-rendered="true">
-                                        <div class="card-body">
-                                                <p class="card-text">书名：《{{book.name}}》</p>
-                                            <!-- <p class="card-text">数量：{{book.Quantity}}</p> -->
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="btn-group">
-                                                    <form action = "/book/{{book.id}}/return" method="POST">
-                                                            {% csrf_token %}
-                                                        <button  type="submit" class="btn btn-sm btn-outline-secondary">还书</button>
-                                                    </form>
-                                                    <button href = "{% url 'book:detail' book.id %}" type="button" class="btn btn-sm btn-outline-secondary">详细信息</button>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>
+                        {% for book in books %}
+                        <div class="col-md-3">
+                            <div class="card mb-4 box-shadow">
+                                <div align='center'>
+                                    {% load staticfiles %}
+                                    <img class="card-img-top" src="{% static book.FrontPage %}" href="/book/{{book.id}}/detail" alt="Thumbnail [100%x100%]" style="height: 50%; width: 50%; display: block;"
+                                        data-holder-rendered="true">
                                 </div>
-                            {%endfor%}
+                                <div class="card-body">
+                                    <div href = "/book/{{book.id}}/detail" >
+                                    <h5 href = "/book/{{book.id}}/detail" class="card-title">{{book.BookName}}</h5></div>
+                                    <br\>
+                                        <p class="card-text">
+                                            <font size='2'>作者：{{book.Author}}</font>
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <form action="/book/{{book.id}}/return" method="POST">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-sm btn-outline-secondary">还书</button>
+                                                </form>
+                                                <a href="/book/{{book.id}}/detail">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary">详细信息</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
                     </div>
                 </div>
-            </div>
-
-        </main>
+    
+            </main>
     </ul>
     {% else %}
         <br\>

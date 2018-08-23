@@ -13,13 +13,14 @@ to start the virtualenv, then run
 ```python manage.py runserver ``` 
 to start the service, the web runs on **127.0.0.1:8000/book** as default
 
+to entry admin page, use 
+```python manage.py createsuperuser```
+
 # Static Files
 css,js and pics
 they are stored in 
 
 ./book/static
-
-**Do not put them at random place, or the project would be a mess**
 
 **To modify html with static files, you can use staic files as shown in item.html:line 6 to line12**
 

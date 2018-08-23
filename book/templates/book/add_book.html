@@ -28,11 +28,11 @@
                     <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="col-sm-offset-4 col-sm-10">
                                     <span class="text-danger small"></span>
                                 </div>
-                                <label class="control-label col-sm-1" for="song_title"><label for="id_ISBN">ISBN:</label></label>
-                                <div class="col-sm-5"><input  type="text" name="ISBN" required id="id_ISBN" maxlength="30" placeholder="请用扫码枪扫书后条形码"/></div>
+                                <label class="control-label col-sm-10" for="song_title"><label for="id_ISBN">ISBN</label></label>
+                                <div class="col-sm-10"><input  class="form-control" type="text" name="ISBN" required id="id_ISBN" maxlength="30" placeholder="请用扫码枪扫书后条形码"/></div>
                             </div>
                         
                             <div class="form-group">
@@ -40,7 +40,7 @@
                                     <span class="text-danger small"></span>
                                 </div>
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_BookName">书名</label></label>
-                                <div class="col-sm-10"><input type="text" name="BookName" required id="id_BookName" maxlength="250" /></div>
+                                <div class="col-sm-10"><input  class="form-control" type="text" name="BookName" required id="id_BookName" maxlength="250" /></div>
                             </div>
                         
                             <div class="form-group">
@@ -48,7 +48,7 @@
                                     <span class="text-danger small"></span>
                                 </div>
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_FrontPage">封面图片</label></label>
-                                <div class="col-sm-10"><input placeholder="封面图片的URL" type="text" name="FrontPage" required id="id_FrontPage" maxlength="400" /></div>
+                                <div class="col-sm-10"><input  class="form-control" placeholder="封面图片的URL" type="text" name="FrontPage" required id="id_FrontPage" maxlength="400" /></div>
                             </div>
                         
                             <div class="form-group">
@@ -56,7 +56,7 @@
                                     <span class="text-danger small"></span>
                                 </div>
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_Author">作者</label></label>
-                                <div class="col-sm-10"><input type="text" name="Author" required id="id_Author" maxlength="100" /></div>
+                                <div class="col-sm-10"><input class="form-control"  type="text" name="Author" required id="id_Author" maxlength="100" /></div>
                             </div>
                         
                             <div class="form-group">
@@ -64,7 +64,7 @@
                                     <span class="text-danger small"></span>
                                 </div>
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_Publisher">出版社</label></label>
-                                <div class="col-sm-10"><input type="text" name="Publisher" placeholder="某某出版社" required id="id_Publisher" maxlength="100" /></div>
+                                <div class="col-sm-10"><input  class="form-control" type="text" name="Publisher" placeholder="某某出版社" required id="id_Publisher" maxlength="100" /></div>
                             </div>
                         
                             <div class="form-group">
@@ -72,7 +72,7 @@
                                     <span class="text-danger small"></span>
                                 </div>
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_Devoter">捐赠者</label></label>
-                                <div class="col-sm-10"><select name="Devoter" id="id_Devoter">
+                                <div class="col-sm-10"><select  class="form-control" name="Devoter" id="id_Devoter">
                           <option value="" selected>---------</option>
                         
                           <option value="20">1</option>
@@ -90,7 +90,7 @@
                                     <span class="text-danger small"></span>
                                 </div>
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_Introduction">Introduction:</label></label>
-                                <div class="col-sm-10"><textarea name="Introduction" id="id_Introduction" cols="40" required rows="10">
+                                <div class="col-sm-10"><textarea  class="form-control"  name="Introduction" id="id_Introduction" cols="40" required rows="10">
                         </textarea></div>
                             </div>
                         <div class="form-group">
