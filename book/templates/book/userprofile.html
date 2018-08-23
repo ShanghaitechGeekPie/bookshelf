@@ -42,7 +42,7 @@
                                                     {% csrf_token %}
                                                     <button type="submit" class="btn btn-sm btn-outline-secondary">还书</button>
                                                 </form>
-                                                <a href="/book/{{book.id}}/detail">
+                                                <a href="https://book.douban.com/subject_search?search_text={{book.ISBN}}&cat=1001">
                                                     <button type="button" class="btn btn-sm btn-outline-secondary">详细信息</button>
                                                 </a>
                                             </div>
