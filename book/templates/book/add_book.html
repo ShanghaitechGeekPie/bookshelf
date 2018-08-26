@@ -5,7 +5,7 @@
 {% block body %}
 
 {% load staticfiles %}
-<script src = "{% static 'getinfo.js' %}"></script>
+<script src = "{% static 'js/getinfo.js' %}"></script>
 
 
 <div class="container-fluid" id = 'form-container'>
@@ -74,9 +74,6 @@
                                 <label class="control-label col-sm-2" for="song_title"><label for="id_Devoter">捐赠者</label></label>
                                 <div class="col-sm-10"><select  class="form-control" name="Devoter" id="id_Devoter">
                           <option value="" selected>---------</option>
-                        
-                          <option value="20">1</option>
-                        
                           {% for person in all_user%}
                           <option value="{{person.id}}">{{person.username}}</option>
                           {% endfor %}

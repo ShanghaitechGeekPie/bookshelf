@@ -30,6 +30,5 @@ class BookForm(forms.ModelForm):
         'FrontPage',
         'Author',
         'Publisher',
-        'Devoter',
         'Introduction',
     ]

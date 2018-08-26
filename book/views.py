@@ -1,6 +1,6 @@
 from django.shortcuts import render , HttpResponseRedirect
 from django.views import generic
-from .models import Book,BorrowRecord
+from .models import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404
@@ -86,7 +86,13 @@ def create_book(request):
         return HttpResponseRedirect('book/login')
     else:
         form = BookForm(request.POST or None, request.FILES or None)
+        info = request.POST.copy()
         if form.is_valid():
+            print(info)
+            devoter_id = info.__getitem__('Devoter')
+            print(info.__getitem__('ISBN'))
+            print(devoter_id)
+            info.pop('Devoter')
             book = form.save(commit=False)
             thisISBN = book.ISBN
             existingISBN = Book.objects.filter(ISBN = thisISBN)
@@ -95,31 +101,41 @@ def create_book(request):
                 existingbook = existingISBN[0]
                 existingbook.Quantity += 1
                 existingbook.save()
+                if devoter_id != '':   
+                    devoter = User.objects.get(id = devoter_id)
+                    record = DevoteRecord(User = devoter,Book = existingbook)
+                    record.save()      
                 return HttpResponseRedirect('/book')
             if existingBookName.count() > 0:
                 existingbook = existingBookName[0]
                 existingbook.Quantity += 1
                 existingbook.save()
+                if devoter_id != '':   
+                    devoter = User.objects.get(id = devoter_id)
+                    record = DevoteRecord(User = devoter,Book = existingbook)
+                    record.save()      
                 return HttpResponseRedirect('/book')
             # save the image front internet
             book.save()
             url = book.FrontPage
             data = urllib.request.urlretrieve(url)
             frontpage = Image.open(data[0])
-            print(book.id)
-            print(book.pk)
             new_route = './book/static/' + str(book.id) + '_frontpage.jpg'
             frontpage.save(new_route,'JPEG')
             book.FrontPage = str(book.id) + '_frontpage.jpg'
             book.save()
+
+            ###deal with the devote record
+            if devoter_id != '':   
+                devoter = User.objects.get(id = devoter_id)
+                record = DevoteRecord(User = devoter,Book = book)
+                record.save()           
             return HttpResponseRedirect('/book')
         context = {
             "form": form,
             "all_user" : User.objects.all(),
         }
         return render(request, 'book/add_book.html', context)
-
-
 
 
 def BorrowBook(request, book_id):
@@ -180,7 +196,7 @@ def returnBook(request, book_id):
 def userProfile(request,user_id):
     user = request.user
     if not user.is_authenticated:
-        return render(request, 'book/login.html' ,{ error_message : "Please login first"} )
+        return HttpResponseRedirect("/book/login")
     else:
 
         borrowRecords = BorrowRecord.objects.filter( Borrower = request.user ).filter(finished = False)
@@ -215,3 +231,11 @@ def register(request):
     }
     return render(request, 'book/register.html', context)
 
+def devoterlist(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect("/book/login")
+    else:
+        context = {
+            'all_records': DevoteRecord.objects.all(),
+        }
+        return render(request,'book/devote.html',context)
